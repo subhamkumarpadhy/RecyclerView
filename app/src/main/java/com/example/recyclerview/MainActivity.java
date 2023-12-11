@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setContentView(R.layout.app_update);
 
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(MainActivity.this, "Please Enter Contact Number!!", Toast.LENGTH_SHORT).show();
                         }
-
                         arrContact.add(new ContactModel(R.drawable.img, name, number));
                         adapter.notifyItemInserted(arrContact.size() - 1);
                         recyclerView.scrollToPosition(arrContact.size() - 1);
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
 
         arrContact.add(new ContactModel(R.drawable.a, "A", "5468746578"));
         arrContact.add(new ContactModel(R.drawable.b, "B", "8461254964"));

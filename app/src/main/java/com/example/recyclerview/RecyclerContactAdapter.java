@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
 
     Context context;
     ArrayList<ContactModel> arrContacts;
+    private int lastPosition = -1;
     RecyclerContactAdapter(Context context, ArrayList<ContactModel> arrContacts) {
         this.context = context;
         this.arrContacts = arrContacts;
@@ -42,6 +45,8 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
         holder.imgContact.setImageResource(arrContacts.get(position).img);
         holder.txtName.setText(arrContacts.get(position).name);
         holder.txtNumber.setText(arrContacts.get(position).number);
+
+        setAnimation(holder.itemView, position);
 
         holder.llRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +105,6 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                 builder.show();
@@ -121,12 +125,17 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
         LinearLayout llRow;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             txtName = itemView.findViewById(R.id.txtName);
             txtNumber = itemView.findViewById(R.id.txtNumber);
             imgContact = itemView.findViewById(R.id.imgContact);
             llRow = itemView.findViewById(R.id.llRow);
         }
-
+    }
+    public void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            Animation slideIn = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(slideIn);
+            lastPosition = position;
+        }
     }
 }
